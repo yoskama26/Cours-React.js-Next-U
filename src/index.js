@@ -1,3 +1,7 @@
+
+/*
+StrictMode est un outil pour détecter les problèmes potentiels d’une application.
+*/
 import { StrictMode } from "react";
 import ReactDOM from "react-dom";
 
