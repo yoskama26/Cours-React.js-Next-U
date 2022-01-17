@@ -2,6 +2,8 @@ import React from "react";
 
 import "./ExpenseEntryItem.css";
 
+import styles from "./ExpenseEntryItem.module.css";
+
 import imgItem from "./../assets/images/image_produit.png";
 
 const class_name = "red_h2";
@@ -23,11 +25,19 @@ class ExpenseEntryItem extends React.Component {
 
   myelement = (
     <div>
-      <h2>Création d'un composant de classe</h2>
+      <h2
+        style={{
+          color: "brown",
+          fontSize: "30px"
+        }}
+      >
+        Création d'un composant de classe
+      </h2>
       <h2 className={class_name}>
         L'heure actuelle est {this.getCurrentTime()}
       </h2>
       <div>
+        <h2 className={styles.itemH2Style}>Image de produit </h2>
         <img className="class_image_item" src={imgItem} alt="image item " />
       </div>
       <div>
