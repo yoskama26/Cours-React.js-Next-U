@@ -2,8 +2,6 @@ import React from "react";
 
 import "./ExpenseEntryItem.css";
 
-import styles from "./ExpenseEntryItem.module.css";
-
 import imgItem from "./../assets/images/image_produit.png";
 
 import FormattedMoney from "./FormattedMoney";
@@ -25,6 +23,22 @@ class ExpenseEntryItem extends React.Component {
     return new Date().toTimeString();
   }
 
+  lists = this.props.items.map((item) => (
+    <tr key={item.id}>
+      <td>
+        <img className="class_image_item" src={imgItem} alt="image item " />
+      </td>
+      <td>{item.name}</td>
+      <td>
+        <FormattedMoney value={item.amount} />
+      </td>
+      <td>
+        <FormattedDate value={item.dateDepenseItem} />
+      </td>
+      <td>{item.category}</td>
+    </tr>
+  ));
+
   myelement = (
     <div>
       <h2
@@ -33,35 +47,29 @@ class ExpenseEntryItem extends React.Component {
           fontSize: "30px"
         }}
       >
-        Création d'un composant de classe
+        ReactJS - Collection de composants
       </h2>
       <h2 className={class_name}>
         L'heure actuelle est {this.getCurrentTime()}
       </h2>
-      <div>
-        <h2 className={styles.itemH2Style}>Image de produit </h2>
-        <img className="class_image_item" src={imgItem} alt="image item " />
-      </div>
-      <div>
-        <b className="class_item">Item:</b>{" "}
-        <em style={this.contentItemStyle}>{this.props.item.nomItem}</em>
-      </div>
-      <div>
-        <b className="class_item">Montant:</b>{" "}
-        <em style={this.contentItemStyle}>
-          <FormattedMoney value={this.props.item.amountItem} />
-        </em>
-      </div>
-      <div>
-        <b className="class_item">Date de dépense:</b>{" "}
-        <em style={this.contentItemStyle}>
-          <FormattedDate value={this.props.item.dateDepenseItem} />
-        </em>
-      </div>
-      <div>
-        <b className="class_item">Categorie:</b>{" "}
-        <em style={this.contentItemStyle}>{this.props.item.categoryItem}</em>
-      </div>
+
+      <table
+        border="1"
+        style={{
+          marginLeft: "20%"
+        }}
+      >
+        <thead>
+          <tr>
+            <th>Picture</th>
+            <th>Item</th>
+            <th>Amount</th>
+            <th>Date</th>
+            <th>Category</th>
+          </tr>
+        </thead>
+        <tbody>{this.lists}</tbody>
+      </table>
     </div>
   );
 
