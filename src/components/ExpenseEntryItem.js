@@ -44,23 +44,23 @@ class ExpenseEntryItem extends React.Component {
       </div>
       <div>
         <b className="class_item">Item:</b>{" "}
-        <em style={this.contentItemStyle}>{this.props.nomItem}</em>
+        <em style={this.contentItemStyle}>{this.props.item.nomItem}</em>
       </div>
       <div>
         <b className="class_item">Montant:</b>{" "}
         <em style={this.contentItemStyle}>
-          <FormattedMoney value={this.props.amountItem} />
+          <FormattedMoney value={this.props.item.amountItem} />
         </em>
       </div>
       <div>
         <b className="class_item">Date de dépense:</b>{" "}
         <em style={this.contentItemStyle}>
-          <FormattedDate value={this.props.dateDepenseItem} />
+          <FormattedDate value={this.props.item.dateDepenseItem} />
         </em>
       </div>
       <div>
         <b className="class_item">Categorie:</b>{" "}
-        <em style={this.contentItemStyle}>{this.props.categoryItem}</em>
+        <em style={this.contentItemStyle}>{this.props.item.categoryItem}</em>
       </div>
     </div>
   );
