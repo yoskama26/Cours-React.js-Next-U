@@ -6,6 +6,9 @@ import styles from "./ExpenseEntryItem.module.css";
 
 import imgItem from "./../assets/images/image_produit.png";
 
+import FormattedMoney from "./FormattedMoney";
+import FormattedDate from "./FormattedDate";
+
 const class_name = "red_h2";
 
 class ExpenseEntryItem extends React.Component {
@@ -20,10 +23,6 @@ class ExpenseEntryItem extends React.Component {
 
   getCurrentTime() {
     return new Date().toTimeString();
-  }
-
-  getFormatedDate(value) {
-    return value.toString();
   }
 
   myelement = (
@@ -49,12 +48,14 @@ class ExpenseEntryItem extends React.Component {
       </div>
       <div>
         <b className="class_item">Montant:</b>{" "}
-        <em style={this.contentItemStyle}>{this.props.amountItem}</em>
+        <em style={this.contentItemStyle}>
+          <FormattedMoney value={this.props.amountItem} />
+        </em>
       </div>
       <div>
         <b className="class_item">Date de dépense:</b>{" "}
         <em style={this.contentItemStyle}>
-          {this.getFormatedDate(this.props.dateDepenseItem)}
+          <FormattedDate value={this.props.dateDepenseItem} />
         </em>
       </div>
       <div>
