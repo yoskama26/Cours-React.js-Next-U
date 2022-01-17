@@ -12,6 +12,11 @@ class ExpenseEntryItem extends React.Component {
   dateDepenseItem = 2020 - 10 - 10;
   CategoryItem = "Food";
 
+  contentItemStyle = {
+    color: "brown",
+    fontSize: "14px"
+  };
+
   getCurrentTime() {
     return new Date().toTimeString();
   }
@@ -26,17 +31,20 @@ class ExpenseEntryItem extends React.Component {
         <img className="class_image_item" src={imgItem} alt="image item " />
       </div>
       <div>
-        <b className="class_item">Item:</b> <em>{this.nomItem}</em>
+        <b className="class_item">Item:</b>{" "}
+        <em style={this.contentItemStyle}>{this.nomItem}</em>
       </div>
       <div>
-        <b className="class_item">Montant:</b> <em>{this.amountItem}</em>
+        <b className="class_item">Montant:</b>{" "}
+        <em style={this.contentItemStyle}>{this.amountItem}</em>
       </div>
       <div>
         <b className="class_item">Date de dépense:</b>{" "}
-        <em>{this.dateDepenseItem}</em>
+        <em style={this.contentItemStyle}>{this.dateDepenseItem}</em>
       </div>
       <div>
-        <b className="class_item">Categorie:</b> <em>{this.CategoryItem}</em>
+        <b className="class_item">Categorie:</b>{" "}
+        <em style={this.contentItemStyle}>{this.CategoryItem}</em>
       </div>
     </div>
   );
