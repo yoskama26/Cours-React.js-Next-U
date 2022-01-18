@@ -1,80 +1,48 @@
 import React from "react";
 
-import "./ExpenseEntryItem.css";
-
-import imgItem from "./../assets/images/image_produit.png";
-
-import FormattedMoney from "./FormattedMoney";
-import FormattedDate from "./FormattedDate";
-
-const class_name = "red_h2";
-
 class ExpenseEntryItem extends React.Component {
   constructor(props) {
     super(props);
+    this.logEventToConsole = this.logEventToConsole.bind(this);
   }
 
-  contentItemStyle = {
-    color: "brown",
-    fontSize: "14px"
+  item = {
+    id: 1,
+    nomItem: "Grape Juice",
+    amountItem: 30.5,
+    dateDepenseItem: new Date("2020-10-10"),
+    categoryItem: "Food"
   };
 
-  getCurrentTime() {
-    return new Date().toTimeString();
+  logEventToConsole(e) {
+    // console.log(e.target.innerHTML);
+    // alert(e.target.innerHTML);
+    alert(this.item.id);
   }
 
-  lists = this.props.items.map((item) => (
-    <tr key={item.id}>
-      <td>
-        <img className="class_image_item" src={imgItem} alt="image item " />
-      </td>
-      <td>{item.name}</td>
-      <td>
-        <FormattedMoney value={item.amount} />
-      </td>
-      <td>
-        <FormattedDate value={item.dateDepenseItem} />
-      </td>
-      <td>{item.category}</td>
-    </tr>
-  ));
-
-  myelement = (
-    <div>
-      <h2
-        style={{
-          color: "brown",
-          fontSize: "30px"
-        }}
-      >
-        ReactJS - Collection de composants
-      </h2>
-      <h2 className={class_name}>
-        L'heure actuelle est {this.getCurrentTime()}
-      </h2>
-
-      <table
-        border="1"
-        style={{
-          marginLeft: "20%"
-        }}
-      >
-        <thead>
-          <tr>
-            <th>Picture</th>
-            <th>Item</th>
-            <th>Amount</th>
-            <th>Date</th>
-            <th>Category</th>
-          </tr>
-        </thead>
-        <tbody>{this.lists}</tbody>
-      </table>
-    </div>
-  );
-
   render() {
-    return this.myelement;
+    return (
+      <div>
+        <h2>Création d'un composant de classe</h2>
+        <div>
+          <b>Item:</b> <em>{this.item.nomItem}</em>
+        </div>
+        <div>
+          <b>Amount:</b> <em>{this.item.amountItem}</em>
+        </div>
+        <div>
+          <b>Spend Date:</b> <em>{this.item.dateDepenseItem.toString()}</em>
+        </div>
+        <div>
+          <b>Category:</b> <em>{this.item.categoryItem}</em>
+        </div>
+        <div>
+          <button onClick={this.logEventToConsole}>
+            <span>Hello</span>
+          </button>
+        </div>
+      </div>
+    );
   }
 }
 export default ExpenseEntryItem;
