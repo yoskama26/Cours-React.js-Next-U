@@ -15,12 +15,12 @@ class ExpenseEntryItem extends React.Component {
 
   // utilisation arrow function
 
-  logEventToConsole = (e) => {
+  logEventToConsole(e) {
     console.log(e.target.innerHTML);
     // alert(e.target.innerHTML);
 
     alert(this.item.id);
-  };
+  }
 
   render() {
     return (
@@ -39,7 +39,11 @@ class ExpenseEntryItem extends React.Component {
           <b>Category:</b> <em>{this.item.categoryItem}</em>
         </div>
         <div>
-          <button onClick={this.logEventToConsole}>
+          <button
+            onClick={(e) => {
+              this.logEventToConsole(e);
+            }}
+          >
             <span>Hello</span>
           </button>
         </div>
