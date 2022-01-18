@@ -3,7 +3,6 @@ import React from "react";
 class ExpenseEntryItem extends React.Component {
   constructor(props) {
     super(props);
-    this.logEventToConsole = this.logEventToConsole.bind(this);
   }
 
   item = {
@@ -14,11 +13,14 @@ class ExpenseEntryItem extends React.Component {
     categoryItem: "Food"
   };
 
-  logEventToConsole(e) {
-    // console.log(e.target.innerHTML);
+  // utilisation arrow function
+
+  logEventToConsole = (e) => {
+    console.log(e.target.innerHTML);
     // alert(e.target.innerHTML);
+
     alert(this.item.id);
-  }
+  };
 
   render() {
     return (
