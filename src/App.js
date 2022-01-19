@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./styles.css";
-import ExpenseEntryItem from "./components/ExpenseEntryItem";
+import ExpenseEntryItemList from "./components/ExpenseEntryItemList";
 
 class App extends Component {
   render() {
@@ -8,7 +8,7 @@ class App extends Component {
       <div className="App">
         <h1>Cours React.js</h1>
 
-        <ExpenseEntryItem />
+        <ExpenseEntryItemList />
       </div>
     );
   }
