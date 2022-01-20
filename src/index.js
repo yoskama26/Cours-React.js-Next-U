@@ -1,17 +1,14 @@
-
-/*
-StrictMode est un outil pour détecter les problèmes potentiels d’une application.
-*/
-import { StrictMode } from "react";
+import React from "react";
+import { BrowserRouter } from "react-router-dom";
 import ReactDOM from "react-dom";
 
-
+import "./styles.css";
 import App from "./App";
 
 const rootElement = document.getElementById("root");
 ReactDOM.render(
-  <StrictMode>
-      <App />      
-   </StrictMode>,
+  <BrowserRouter>
+    <App />
+  </BrowserRouter>,
   rootElement
 );
