@@ -5,8 +5,10 @@ import { Link } from "react-router-dom";
 class ExpenseEntryItemList extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { items: [] };
+    this.state = { items: [], checkdelete: false };
     this.deleteItem = this.deleteItem.bind(this);
+
+    // console.log(this.props.match);
   }
   componentDidMount() {
     axios
@@ -38,27 +40,49 @@ class ExpenseEntryItemList extends React.Component {
     console.log(e.target.id);
     // alert(e.target.innerHTML);
 
-    let itemsUpadte = this.state.items.filter(function (item) {
-      return item.id != e.target.id;
-    });
+    const idProduct = e.target.id;
 
-    this.setState({ items: itemsUpadte });
+    axios
+      .delete(
+        "https://61e7cff2e32cd90017acbdad.mockapi.io/products/" + idProduct
+      )
+      .then((response) => {
+        console.log(response);
+        let itemsUpadte = this.state.items.filter(function (item) {
+          return item.id != idProduct;
+        });
 
-    console.log(itemsUpadte);
+        this.state.items = itemsUpadte;
+
+        // console.log(itemsUpadte);
+
+        if (response.status == 200) {
+          this.state.checkdelete = true;
+          this.setState(this.state);
+        }
+
+        console.log(this.state.checkdelete);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   }
 
   render() {
+    let divAlert = "";
+
+    if (this.state.checkdelete) {
+      divAlert = (
+        <div className="alert alert-success" role="alert">
+          L'enregistrement a été éffectué avec succés.
+        </div>
+      );
+    }
     this.lists = this.state.items.map((item) => (
       <tr key={item.id}>
         <td>{item.id}</td>
         <td>
-          <img
-            style={{
-              width: "100%"
-            }}
-            src={item.pictureItem}
-            alt="image item "
-          />
+          <img src={item.pictureItem} alt="image item " />
         </td>
         <td>{item.nameItem}</td>
         <td>{item.amountItem}</td>
@@ -81,8 +105,9 @@ class ExpenseEntryItemList extends React.Component {
       </tr>
     ));
     return (
-      <div>
-        <h3 align="center">Produits List</h3>
+      <div align="center">
+        <h3 align="center">Liste des produits </h3>
+        {divAlert}
         <table
           border="1"
           style={{
