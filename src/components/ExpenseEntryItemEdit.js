@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "axios";
+import { connect } from "react-redux";
 //import { Redirect } from "react-router-dom";
 // <Redirect to="/index" />
 
@@ -22,24 +23,16 @@ class ExpenseEntryItemEdit extends React.Component {
     this.handleAmountChange = this.handleAmountChange.bind(this);
     this.handleDateChange = this.handleDateChange.bind(this);
     this.handleCategoryChange = this.handleCategoryChange.bind(this);
-    console.log(this.props.match.params.id);
-    console.log(this.props.match);
+    // console.log(this.props.match.params.id);
+    // console.log(this.props.match);
+    const { item } = this.props.location.state;
+
+    this.state.item.nameItem = item.nameItem;
+
+    console.log("item", item);
   }
 
-  componentDidMount() {
-    axios
-      .get(
-        "https://61e7cff2e32cd90017acbdad.mockapi.io/products/" +
-          this.props.match.params.id
-      )
-      .then((response) => {
-        this.setState({ item: response.data });
-        console.log(response.data);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  }
+  componentDidMount() {}
 
   handleNameChange(e) {
     this.state.item.nameItem = e.target.value;
@@ -61,25 +54,18 @@ class ExpenseEntryItemEdit extends React.Component {
     e.preventDefault();
     // alert(JSON.stringify(this.state.item));
 
-    axios
-      .put(
-        "https://61e7cff2e32cd90017acbdad.mockapi.io/products/" +
-          this.state.item.id,
-        this.state.item
-      )
-      .then((response) => {
-        console.log(response);
-        // this.setState({ items: response.data });
-        if (response.status == 200) {
-          this.state.checkForm = true;
-          this.setState(this.state);
-        }
-
-        console.log(this.state.checkForm);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+    const data = {
+      nameItem: this.state.item.nameItem,
+      amountItem: this.state.item.amountItem,
+      dateDepenseItem: this.state.item.dateDepenseItem,
+      categorieItem: this.state.item.categorieItem,
+      pictureItem: "https://via.placeholder.com/130x130"
+    };
+    this.props.dispatch({
+      type: "UPDATE_PRODUCT",
+      id: this.props.match.params.id,
+      data: data
+    });
   };
   render() {
     let divAlert = "";
@@ -159,4 +145,4 @@ class ExpenseEntryItemEdit extends React.Component {
     );
   }
 }
-export default ExpenseEntryItemEdit;
+export default connect()(ExpenseEntryItemEdit);

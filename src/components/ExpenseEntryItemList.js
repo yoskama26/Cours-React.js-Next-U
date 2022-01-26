@@ -1,24 +1,15 @@
 import React from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
 
 class ExpenseEntryItemList extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { items: [], checkdelete: false };
+    this.state = { items: props.items, checkdelete: false };
     this.deleteItem = this.deleteItem.bind(this);
 
     // console.log(this.props.match);
-  }
-  componentDidMount() {
-    axios
-      .get("https://61e7cff2e32cd90017acbdad.mockapi.io/products")
-      .then((response) => {
-        this.setState({ items: response.data });
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
   }
 
   formatedDate(dateItem) {
@@ -42,30 +33,20 @@ class ExpenseEntryItemList extends React.Component {
 
     const idProduct = e.target.id;
 
-    axios
-      .delete(
-        "https://61e7cff2e32cd90017acbdad.mockapi.io/products/" + idProduct
-      )
-      .then((response) => {
-        console.log(response);
-        let itemsUpadte = this.state.items.filter(function (item) {
-          return item.id != idProduct;
-        });
+    this.props.dispatch({
+      type: "DELETE_PRODUCT",
+      id: idProduct
+    });
 
-        this.state.items = itemsUpadte;
+    let itemsUpadte = this.state.items.filter(function (item) {
+      return item.id != idProduct;
+    });
 
-        // console.log(itemsUpadte);
+    this.state.items = itemsUpadte;
 
-        if (response.status == 200) {
-          this.state.checkdelete = true;
-          this.setState(this.state);
-        }
+    this.state.checkdelete = true;
 
-        console.log(this.state.checkdelete);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+    this.setState(this.state);
   }
 
   render() {
@@ -91,9 +72,16 @@ class ExpenseEntryItemList extends React.Component {
         </td>
         <td>{item.categorieItem}</td>
         <td>
-          <Link to={"/edit/" + item.id} className="btn btn-primary">
+          <Link
+            to={{
+              pathname: "/edit/" + item.id,
+              state: { item: item }
+            }}
+            className="btn btn-primary"
+          >
             Editer
           </Link>
+
           <button
             className="btn btn-danger"
             id={item.id}
@@ -107,7 +95,9 @@ class ExpenseEntryItemList extends React.Component {
     return (
       <div align="center">
         <h3 align="center">Liste des produits </h3>
+
         {divAlert}
+
         <table
           border="1"
           style={{
@@ -138,4 +128,10 @@ class ExpenseEntryItemList extends React.Component {
     );
   }
 }
-export default ExpenseEntryItemList;
+
+const mapStateToProps = (state) => {
+  return {
+    items: state
+  };
+};
+export default connect(mapStateToProps)(ExpenseEntryItemList);

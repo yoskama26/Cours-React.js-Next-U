@@ -1,5 +1,7 @@
 import React from "react";
 import axios from "axios";
+import { connect } from "react-redux";
+import { v4 as uuidv4 } from "uuid";
 
 class ExpenseEntryItemAdd extends React.Component {
   constructor(props) {
@@ -40,26 +42,22 @@ class ExpenseEntryItemAdd extends React.Component {
     e.preventDefault();
     // alert(JSON.stringify(this.state.item));
 
-    this.state.item.categorieItem = e.target.value;
+    this.state.checkForm = true;
+    this.setState(this.state);
 
-    axios
-      .post(
-        "https://61e7cff2e32cd90017acbdad.mockapi.io/products",
-        this.state.item
-      )
-      .then((response) => {
-        console.log(response);
-        if (response.status == 201) {
-          this.state.checkForm = true;
-          this.setState(this.state);
-        }
+    const data = {
+      id: uuidv4(),
+      nameItem: this.state.item.nameItem,
+      amountItem: this.state.item.amountItem,
+      dateDepenseItem: this.state.item.dateDepenseItem,
+      categorieItem: this.state.item.categorieItem,
+      pictureItem: "https://via.placeholder.com/130x130"
+    };
 
-        console.log(this.state.checkForm);
-        // this.setState({ items: response.data });
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+    this.props.dispatch({
+      type: "ADD_PRODUCT",
+      data
+    });
   };
   render() {
     let divAlert = "";
@@ -143,4 +141,4 @@ class ExpenseEntryItemAdd extends React.Component {
     );
   }
 }
-export default ExpenseEntryItemAdd;
+export default connect()(ExpenseEntryItemAdd);
