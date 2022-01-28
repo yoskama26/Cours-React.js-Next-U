@@ -1,3 +1,5 @@
+import { ADD_FETCHED_DATA } from "./../actions/types.js";
+
 const productReducer = (state = [], action) => {
   switch (action.type) {
     case "ADD_PRODUCT":
@@ -17,6 +19,8 @@ const productReducer = (state = [], action) => {
           };
         } else return product;
       });
+    case ADD_FETCHED_DATA:
+      return [...action.payload];
     default:
       return state;
   }

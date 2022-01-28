@@ -43,7 +43,6 @@ class App extends Component {
           <Route exact path="/create" component={ExpenseEntryItemAdd} />
           <Route path="/edit/:id" component={ExpenseEntryItemEdit} />
           <Route path="/index" component={ExpenseEntryItemList} />
-          <Route path="/" component={ExpenseEntryItemList} />
         </Switch>
       </Router>
     );
