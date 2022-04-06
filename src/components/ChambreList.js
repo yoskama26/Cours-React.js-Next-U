@@ -2,17 +2,17 @@ import React from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
-class ExpenseEntryItemList extends React.Component {
-  constructor(props) {
-    super(props);
+class ChambreList extends React.Component {
+  constructor(props2) {
+    super(props2);
     this.state = { items: [], checkdelete: false };
     this.deleteItem = this.deleteItem.bind(this);
 
-    // console.log(this.props.match);
+    // console.log(this.props2.match);
   }
   componentDidMount() {
     axios
-      .get("https://62055a9c161670001741b9ba.mockapi.io/Hotel")
+      .get("https://62055a9c161670001741b9ba.mockapi.io/chambre")
       .then((response) => {
         this.setState({ items: response.data });
       })
@@ -25,14 +25,16 @@ class ExpenseEntryItemList extends React.Component {
     console.log(e.target.id);
     // alert(e.target.innerHTML);
 
-    const id = e.target.id;
+    const idChambre = e.target.id;
 
     axios
-      .delete("https://62055a9c161670001741b9ba.mockapi.io/Hotel/" + id)
+      .delete(
+        "https://62055a9c161670001741b9ba.mockapi.io/chambre/" + idChambre
+      )
       .then((response) => {
         console.log(response);
         let itemsUpadte = this.state.items.filter(function (item) {
-          return item.id != id;
+          return item.id != idChambre;
         });
 
         this.state.items = itemsUpadte;
@@ -64,11 +66,10 @@ class ExpenseEntryItemList extends React.Component {
     this.lists = this.state.items.map((item) => (
       <tr key={item.id}>
         <td>{item.id}</td>
-        <td>{item.nom}</td>
-        <td>{item.adresse}</td>
-        <td>{item.Telephone}</td>
+        <td>{item.numero}</td>
+        <td>{item.telephone}</td>
         <td>
-          <Link to={"/edit/" + item.id} className="btn btn-primary">
+          <Link to={"/chambreEdit/" + item.id} className="btn btn-primary">
             Editer
           </Link>
           <button
@@ -83,7 +84,7 @@ class ExpenseEntryItemList extends React.Component {
     ));
     return (
       <div align="center">
-        <h3 align="center">Liste des Hotels </h3>
+        <h3 align="center">Liste des chambres </h3>
         {divAlert}
         <table
           border="1"
@@ -101,11 +102,9 @@ class ExpenseEntryItemList extends React.Component {
               >
                 ID
               </th>
-
-              <th>Nom</th>
-              <th>Adresses</th>
-              <th>Telephone</th>
-              <th colSpan="2">Action</th>
+              <td>Numero</td>
+              <td>Telephone</td>
+              <td>Actions</td>
             </tr>
           </thead>
           <tbody>{this.lists}</tbody>
@@ -114,4 +113,4 @@ class ExpenseEntryItemList extends React.Component {
     );
   }
 }
-export default ExpenseEntryItemList;
+export default ChambreList;

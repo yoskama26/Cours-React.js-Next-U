@@ -3,22 +3,27 @@ import axios from "axios";
 //import { Redirect } from "react-router-dom";
 // <Redirect to="/index" />
 
-class ExpenseEntryItemEdit extends React.Component {
+class ClientEdit extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       item: {
         id: "",
         nom: "",
-        adresse: "",
-        Telephone: ""
+        Telephone: "",
+        adresses: "",
+        prenom: "",
+        ville: "",
+        codepostal: "",
+        pays: "",
+        email: ""
       },
       checkForm: false
     };
 
     this.handlenomChange = this.handlenomChange.bind(this);
-    this.handleTelephoneChange = this.handleTelephoneChange.bind(this);
     this.handleadresseChange = this.handleadresseChange.bind(this);
+    this.handletelephoneChange = this.handletelephoneChange.bind(this);
     console.log(this.props.match.params.id);
     console.log(this.props.match);
   }
@@ -26,7 +31,7 @@ class ExpenseEntryItemEdit extends React.Component {
   componentDidMount() {
     axios
       .get(
-        "https://62055a9c161670001741b9ba.mockapi.io/Hotel/" +
+        "https://62055a9c161670001741b9ba.mockapi.io/Client/" +
           this.props.match.params.id
       )
       .then((response) => {
@@ -42,22 +47,21 @@ class ExpenseEntryItemEdit extends React.Component {
     this.state.item.nom = e.target.value;
     this.setState(this.state.item);
   }
-  handleTelephoneChange(e) {
-    this.state.item.Telephone = e.target.value;
-    this.setState(this.state.item);
-  }
   handleadresseChange(e) {
     this.state.item.adresse = e.target.value;
     this.setState(this.state.item);
   }
-
+  handletelephoneChange(e) {
+    this.state.item.telephone = e.target.value;
+    this.setState(this.state.item);
+  }
   onSubmit = (e) => {
     e.preventDefault();
     // alert(JSON.stringify(this.state.item));
 
     axios
       .put(
-        "https://62055a9c161670001741b9ba.mockapi.io/Hotel/" +
+        "https://62055a9c161670001741b9ba.mockapi.io/Client/" +
           this.state.item.id,
         this.state.item
       )
@@ -89,19 +93,31 @@ class ExpenseEntryItemEdit extends React.Component {
     return (
       <div id="container">
         <div>
-          <h3>Modifier un produit</h3>
+          <h3>Modifier un client</h3>
         </div>
 
         <form onSubmit={(e) => this.onSubmit(e)}>
           {divAlert}
           <div className="form-group">
-            <label>Hotel</label>
+            <label>Nom</label>
             <input
               type="text"
               id="nom"
               name="nom"
-              placeholder="Un hotel ? Trivago"
+              placeholder="Enter un nom"
               value={this.state.item.nom}
+              onChange={this.handlenomChange}
+            />
+          </div>
+
+          <div className="form-group">
+            <label>Prenom</label>
+            <input
+              type="text"
+              id="prenom"
+              name="prenom"
+              placeholder="Enter un prenom"
+              value={this.state.item.prenom}
               onChange={this.handlenomChange}
             />
           </div>
@@ -109,12 +125,60 @@ class ExpenseEntryItemEdit extends React.Component {
           <div className="form-group">
             <label>Adresse</label>
             <input
-              type="string"
+              type="text"
               id="adresse"
               name="adresse"
-              placeholder="Entrer une adresse"
+              placeholder="Enter une adresse"
               value={this.state.item.adresse}
-              onChange={this.handleadresseChange}
+              onChange={this.handleprenomChange}
+            />
+          </div>
+
+          <div className="form-group">
+            <label>Ville</label>
+            <input
+              type="text"
+              id="ville"
+              name="ville"
+              placeholder="Enter une ville"
+              value={this.state.item.ville}
+              onChange={this.handlevilleChange}
+            />
+          </div>
+
+          <div className="form-group">
+            <label>Pays</label>
+            <input
+              type="text"
+              id="pays"
+              name="pays"
+              placeholder="Enterun pays"
+              value={this.state.item.pays}
+              onChange={this.handlepaysChange}
+            />
+          </div>
+
+          <div className="form-group">
+            <label>Code postale</label>
+            <input
+              type="number"
+              id="codePostale"
+              name="codePostale"
+              placeholder="Enter un CP"
+              value={this.state.item.codePostale}
+              onChange={this.handlecodePostaleChange}
+            />
+          </div>
+
+          <div className="form-group">
+            <label>Mail</label>
+            <input
+              type="text"
+              id="mail"
+              name="mail"
+              placeholder="Enter un mail"
+              value={this.state.item.mail}
+              onChange={this.handlemailChange}
             />
           </div>
 
@@ -124,9 +188,9 @@ class ExpenseEntryItemEdit extends React.Component {
               type="number"
               id="telephone"
               name="telephone"
-              placeholder="Entrer un telephone"
+              placeholder="Enter un telephone"
               value={this.state.item.Telephone}
-              onChange={this.handleTelephoneChange}
+              onChange={this.handletelephoneChange}
             />
           </div>
 
@@ -138,4 +202,4 @@ class ExpenseEntryItemEdit extends React.Component {
     );
   }
 }
-export default ExpenseEntryItemEdit;
+export default ClientEdit;
